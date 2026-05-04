@@ -1,0 +1,31 @@
+#btn-group {
+    display: flex;
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#registerBtn, #loginBtn {
+    width: 100px;
+    padding: 4px 0;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+}
+
+#registerBtn {
+    border-right: 1px solid #ccc;
+}
+
+#registerBtn:hover,
+#loginBtn:hover {
+    background-color: #d4edda;
+}
+
+#registerFrame {
+    display:none;
+}
+#loginFrame {
+    display:none;
+}
