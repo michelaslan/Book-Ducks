@@ -1,3 +1,9 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #btn-group {
     display: flex;
     width: fit-content;
@@ -23,9 +29,26 @@
     background-color: #d4edda;
 }
 
-#registerFrame {
-    display:none;
+#registerFrame, #loginFrame {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 36px 16px;
+    display: none;
+    margin: 10px;
 }
-#loginFrame {
-    display:none;
+
+#closeRegisterBtn, #closeLoginBtn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #ff0000;
 }

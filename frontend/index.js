@@ -15,7 +15,6 @@ const renderPage = async () => {
         </div>`
     })
 }
-
 const buttonRendering = () => {
     const registerBtn = document.querySelector("#registerBtn");
     const loginBtn = document.querySelector("#loginBtn");
@@ -50,6 +49,8 @@ const buttonRendering = () => {
         loginFrame.style.display = "none";
     });
 }
-buttonRendering();
 
+
+
+buttonRendering();
 renderPage();
