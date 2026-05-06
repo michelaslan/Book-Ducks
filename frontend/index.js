@@ -5,14 +5,19 @@ const renderPage = async () => {
     let books = response.data.data;
 
     books.forEach(book => {
-        document.querySelector("#product-list").innerHTML += `
-        <div class="product-container">
+        const card = document.createElement("div");
+        card.className = "book-container";
+        card.innerHTML = `
+            <img src="${BASE_URL}${book.Cover?.url}"/>
             <h2>${book.Title}</h2>
             <p>${book.Author}</p>
-            <p>Pages: ${book.Pages}</p>
-            <p>Release Date: ${book.Release}</p>
-            <img src="${BASE_URL}${book.Cover?.url}" height="100"/>
-        </div>`
+            <p>${book.Pages} pages</p>
+            <p>Released ${book.Release}</p>
+            <p><span style="color: #F59E0B;">★</span> ${book.Rating}</p>`;
+        card.addEventListener("click", () => {
+            window.location.href = `book.html?id=${book.documentId}`;
+        });
+        document.querySelector("#book-list").appendChild(card);
     })
 }
 const buttonRendering = () => {
@@ -23,34 +28,29 @@ const buttonRendering = () => {
     const closeRegisterBtn = document.querySelector("#closeRegisterBtn");
     const closeLoginBtn = document.querySelector("#closeLoginBtn");
 
-    registerBtn.addEventListener("click", () => {
-        if (loginFrame.style.display === "flex"){
-            loginFrame.style.display = "none";
-            registerFrame.style.display = "flex";
-        }
-        else {
-            registerFrame.style.display = "flex";
-        }
-    });
-    loginBtn.addEventListener("click", () => {
-        if (registerFrame.style.display === "flex"){
-            registerFrame.style.display = "none";
-            loginFrame.style.display = "flex";
-        }
-        else {
-            loginFrame.style.display = "flex";
-        }
-    });
-    closeRegisterBtn.addEventListener("click", () => {
-        registerFrame.style.display = "none";
-
-    });
-    closeLoginBtn.addEventListener("click", () => {
+    const openRegisterFrame = () => {
         loginFrame.style.display = "none";
-    });
+        registerFrame.style.display = "flex";
+    }
+
+    const openLoginFrame = () => {
+        registerFrame.style.display = "none";
+        loginFrame.style.display = "flex";
+    }
+
+    const closeRegisterFrame = () => {
+        registerFrame.style.display = "none";
+    }
+
+    const closeLoginFrame = () => {
+        loginFrame.style.display = "none";
+    }
+
+    registerBtn.addEventListener("click", openRegisterFrame);
+    loginBtn.addEventListener("click", openLoginFrame);
+    closeRegisterBtn.addEventListener("click", closeRegisterFrame);
+    closeLoginBtn.addEventListener("click", closeLoginFrame);
 }
-
-
-
 buttonRendering();
+
 renderPage();

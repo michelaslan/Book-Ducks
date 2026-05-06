@@ -464,6 +464,15 @@ export interface ApiBookBook extends Struct.CollectionTypeSchema {
         number
       >;
     publishedAt: Schema.Attribute.DateTime;
+    Rating: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 1;
+        },
+        number
+      >;
+    readlists: Schema.Attribute.Relation<'oneToMany', 'api::readlist.readlist'>;
     Release: Schema.Attribute.Date & Schema.Attribute.Required;
     Title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -471,6 +480,73 @@ export interface ApiBookBook extends Struct.CollectionTypeSchema {
         maxLength: 40;
       }> &
       Schema.Attribute.DefaultTo<'Title'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiReadlistReadlist extends Struct.CollectionTypeSchema {
+  collectionName: 'readlists';
+  info: {
+    displayName: 'Readlist';
+    pluralName: 'readlists';
+    singularName: 'readlist';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    books: Schema.Attribute.Relation<'oneToMany', 'api::book.book'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::readlist.readlist'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiUserRatingUserRating extends Struct.CollectionTypeSchema {
+  collectionName: 'user_ratings';
+  info: {
+    displayName: 'User-rating';
+    pluralName: 'user-ratings';
+    singularName: 'user-rating';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-rating.user-rating'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Rating: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 1;
+        },
+        number
+      >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -933,7 +1009,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -960,6 +1035,8 @@ export interface PluginUsersPermissionsUser
       }>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    readlist: Schema.Attribute.Relation<'oneToOne', 'api::readlist.readlist'>;
+    readlists: Schema.Attribute.Relation<'oneToMany', 'api::readlist.readlist'>;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
@@ -989,6 +1066,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::book.book': ApiBookBook;
+      'api::readlist.readlist': ApiReadlistReadlist;
+      'api::user-rating.user-rating': ApiUserRatingUserRating;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

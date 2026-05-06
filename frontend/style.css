@@ -1,7 +1,23 @@
+header {
+    border-bottom: 1px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:50px;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+#profileDuck {
+    display: none;
 }
 
 #btn-group {
@@ -52,3 +68,54 @@ body {
     font-size: 14px;
     color: #ff0000;
 }
+
+#book-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-container {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.book-container:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.book-container img {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+}
+
+.book-container h2,
+.book-container p {
+    margin: 4px 12px;
+}
+
+.book-container h2 {
+    margin-top: 12px;
+    font-size: 1.1rem;
+}
+
+.book-container p:last-child {
+    margin-bottom: 12px;
+}
+
+#bookmark {
+    height:20px;
+}
+

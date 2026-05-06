@@ -42,6 +42,16 @@
         "videos",
         "audios"
       ]
+    },
+    "Rating": {
+      "type": "decimal",
+      "min": 1,
+      "max": 10
+    },
+    "readlists": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::readlist.readlist"
     }
   }
 }
