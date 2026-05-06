@@ -28,24 +28,22 @@ async function addToReadList() {
         const token = localStorage.getItem("token");
         const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
-        const meRes = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
-        const userId = meRes.data.id;
+        const { data: user } = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
 
-        const res = await axios.get(
-            `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${userId}&populate=books`,
+        const { data: readlistRes } = await axios.get(
+            `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${user.id}&populate=books`,
             authHeader
         );
-        const readlists = res.data.data;
+        const readlist = readlistRes.data[0];
 
-        if (readlists.length > 0) {
-            const readlist = readlists[0];
+        if (readlist) {
             const existingBooks = readlist.books.map(b => b.documentId);
             await axios.put(`${BASE_URL}/api/readlists/${readlist.documentId}`, {
                 data: { books: [...existingBooks, id] }
             }, authHeader);
         } else {
             await axios.post(`${BASE_URL}/api/readlists`, {
-                data: { books: [id], users_permissions_user: userId }
+                data: { books: [id], users_permissions_user: user.id }
             }, authHeader);
         }
     });
