@@ -1,5 +1,7 @@
 const BASE_URL = "http://localhost:1337";
 const id = new URLSearchParams(location.search).get("id");
+const token = localStorage.getItem("token");
+const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
 const renderBook = async () => {
     const response = await axios.get(`${BASE_URL}/api/books/${id}?populate=*`);
@@ -28,13 +30,13 @@ async function addToReadList() {
         const token = localStorage.getItem("token");
         const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
-        const { data: user } = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
+        const user = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
 
-        const { data: readlistRes } = await axios.get(
-            `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${user.id}&populate=books`,
+        const readlistRes = await axios.get(
+            `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${user.data.id}&populate=books`,
             authHeader
         );
-        const readlist = readlistRes.data[0];
+        const readlist = readlistRes.data.data[0];
 
         if (readlist) {
             const existingBooks = readlist.books.map(b => b.documentId);
@@ -43,28 +45,25 @@ async function addToReadList() {
             }, authHeader);
         } else {
             await axios.post(`${BASE_URL}/api/readlists`, {
-                data: { books: [id], users_permissions_user: user.id }
+                data: { books: [id], users_permissions_user: user.data.id }
             }, authHeader);
         }
     });
 }
 
 async function rateBook() {
-    const token = localStorage.getItem("token");
-    const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
-    const { data: user } = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
+    const user = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
 
-    const { data: existing } = await axios.get(
-        `${BASE_URL}/api/user-ratings?filters[users_permissions_user][id][$eq]=${user.id}&filters[book][documentId][$eq]=${id}`,
+    const existing = await axios.get(
+        `${BASE_URL}/api/user-ratings?filters[users_permissions_user][id][$eq]=${user.data.id}&filters[book][documentId][$eq]=${id}`,
         authHeader
     );
-    let ratingDocumentId = existing.data[0]?.documentId || null;
-    const existingRatingValue = existing.data[0]?.Rating || null;
+    let ratingDocumentId = existing.data.data[0]?.documentId || null;
+    const existingRatingValue = existing.data.data[0]?.Rating || null;
 
     const stars = document.querySelectorAll("#stars span");
 
-    // Visa befintligt betyg vid sidladdning
     if (existingRatingValue) {
         stars.forEach(s => {
             s.textContent = parseInt(s.dataset.value) <= existingRatingValue ? "★" : "☆";
@@ -87,7 +86,7 @@ async function rateBook() {
                 }, authHeader);
             } else {
                 const res = await axios.post(`${BASE_URL}/api/user-ratings`, {
-                    data: { Rating: rating, book: id, users_permissions_user: user.id }
+                    data: { Rating: rating, book: id, users_permissions_user: user.data.id }
                 }, authHeader);
                 ratingDocumentId = res.data.data.documentId;
             }
@@ -100,12 +99,12 @@ async function checkReadlistStatus() {
     if (!token) return;
     const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
-    const { data: user } = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
-    const { data: readlistRes } = await axios.get(
-        `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${user.id}&populate=books`,
+    const user = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
+    const readlistRes = await axios.get(
+        `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${user.data.id}&populate=books`,
         authHeader
     );
-    const readlist = readlistRes.data[0];
+    const readlist = readlistRes.data.data[0];
     const addToReadBtn = document.querySelector("#addToReadBtn");
 
     if (readlist?.books.some(b => b.documentId === id)) {

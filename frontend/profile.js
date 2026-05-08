@@ -9,11 +9,11 @@ let readlistDocumentId = null;
 const renderProfile = async () => {
     if (!token) return;
 
-    const { data: user } = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
-    document.querySelector("#profile-username").textContent = user.username;
+    const user = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
+    document.querySelector("#profile-username").textContent = user.data.username;
 
     const readlistRes = await axios.get(
-        `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${user.id}&populate=books.Cover`,
+        `${BASE_URL}/api/readlists?filters[users_permissions_user][id][$eq]=${user.data.id}&populate=books.Cover`,
         authHeader
     );
     const readlist = readlistRes.data.data[0];
@@ -22,7 +22,7 @@ const renderProfile = async () => {
     showReadlist(readlistBooks);
 
     const ratingsRes = await axios.get(
-        `${BASE_URL}/api/user-ratings?filters[users_permissions_user][id][$eq]=${user.id}&populate=book.Cover`,
+        `${BASE_URL}/api/user-ratings?filters[users_permissions_user][id][$eq]=${user.data.id}&populate=book.Cover`,
         authHeader
     );
     ratedEntries = ratingsRes.data.data;

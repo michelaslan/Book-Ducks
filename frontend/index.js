@@ -2,11 +2,30 @@ const BASE_URL = "http://localhost:1337";
 const token = localStorage.getItem("token");
 const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
+async function averageRating() {
+    const res = await axios.get(`${BASE_URL}/api/user-ratings?populate=book`);
+    const ratings = res.data.data;
+    const map = {};
+    ratings.forEach(r => {
+        const id = r.book?.documentId;
+        if (!id) return;
+        if (!map[id]) map[id] = [];
+        map[id].push(r.Rating);
+    });
+    const avg = {};
+    for (const id in map) {
+        avg[id] = (map[id].reduce((a, b) => a + b, 0) / map[id].length).toFixed(1);
+    }
+    return avg;
+}
+
 const renderPage = async () => {
+    const avg = await averageRating();
     let response = await axios.get(`${BASE_URL}/api/books?populate=*`);
     let books = response.data.data;
 
     books.forEach(book => {
+        const rating = avg[book.documentId] ?? book.Rating;
         const card = document.createElement("div");
         card.className = "book-container";
         card.innerHTML = `
@@ -15,14 +34,17 @@ const renderPage = async () => {
             <p>${book.Author}</p>
             <p>${book.Pages} pages</p>
             <p>Released ${book.Release}</p>
-            <p><span style="color: #F59E0B;">★</span> ${book.Rating}</p>`;
+            <p><span style="color: #F59E0B;">★</span> ${rating}</p>`
+            ;
+            
         card.addEventListener("click", () => {
             window.location.href = `book.html?id=${book.documentId}`;
         });
         document.querySelector("#book-list").appendChild(card);
     })
 }
-const buttonRendering = () => {
+
+function buttonRendering (){
     const registerBtn = document.querySelector("#registerBtn");
     const loginBtn = document.querySelector("#loginBtn");
     const registerFrame = document.querySelector("#registerFrame");
@@ -55,8 +77,8 @@ const buttonRendering = () => {
 }
 
 async function adminPanel(){
-    const { data: user } = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
-    if (user.Admin === true) {
+    const user = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
+    if (user.data.Admin === true) {
         const adminAddBookBtn = document.querySelector("#admin-addBook");
         adminAddBookBtn.style.display = "flex";
     }

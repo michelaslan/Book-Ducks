@@ -371,6 +371,17 @@ main {
 }
 
 
+a:has(#admin-addBook) {
+    text-decoration: none;
+}
+
 #admin-addBook {
-    display:none;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    height: 50px;
+    width: 50px;
+    color: black;
+    border-radius: 40px;
 }
