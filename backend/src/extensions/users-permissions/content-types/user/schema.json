@@ -76,6 +76,10 @@
       "relation": "oneToOne",
       "target": "api::readlist.readlist",
       "mappedBy": "users_permissions_user"
+    },
+    "Admin": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

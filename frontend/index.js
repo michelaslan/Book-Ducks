@@ -1,4 +1,6 @@
 const BASE_URL = "http://localhost:1337";
+const token = localStorage.getItem("token");
+const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
 const renderPage = async () => {
     let response = await axios.get(`${BASE_URL}/api/books?populate=*`);
@@ -51,6 +53,15 @@ const buttonRendering = () => {
     closeRegisterBtn.addEventListener("click", closeRegisterFrame);
     closeLoginBtn.addEventListener("click", closeLoginFrame);
 }
-buttonRendering();
 
+async function adminPanel(){
+    const { data: user } = await axios.get(`${BASE_URL}/api/users/me`, authHeader);
+    if (user.Admin === true) {
+        const adminAddBookBtn = document.querySelector("#admin-addBook");
+        adminAddBookBtn.style.display = "flex";
+    }
+}
+
+buttonRendering();
 renderPage();
+adminPanel()

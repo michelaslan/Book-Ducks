@@ -1,48 +1,61 @@
-header {
-    border-bottom: 1px solid black;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap:50px;
-}
-
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 40px;
+    background-color: #fff;
+    border-bottom: 1px solid #dde8dd;
+    box-sizing: border-box;
+}
+
+#header-logo {
+    height: 80px;
+}
+
+#header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
 #profileDuck {
+    color: rgb(23, 67, 23);
     display: none;
 }
 
 #btn-group {
     display: flex;
-    width: fit-content;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #c5d9c5;
+    border-radius: 6px;
     overflow: hidden;
 }
 
 #registerBtn, #loginBtn {
-    width: 100px;
-    padding: 4px 0;
-    background-color: #f0f0f0;
+    width: 90px;
+    padding: 6px 0;
+    background-color: #fff;
     border: none;
     cursor: pointer;
+    color: #3a5a3a;
+    font-size: 0.85rem;
 }
 
 #registerBtn {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #c5d9c5;
 }
 
 #registerBtn:hover,
 #loginBtn:hover {
-    background-color: #d4edda;
+    background-color: #eaf3ea;
 }
 
 #registerFrame, #loginFrame {
@@ -84,15 +97,18 @@ body {
     height: 500px;
     display: flex;
     flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid #dde8dd;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     cursor: pointer;
+    background: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .book-container:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.13);
+    transform: translateY(-2px);
 }
 
 .book-container img {
@@ -116,24 +132,245 @@ body {
 }
 
 #bookmark {
-    height:20px;
+    height: 20px;
 }
 
 #backArrow {
     position: fixed;
     top: 20px;
-    left:20px;
+    left: 20px;
+    font-size: 2rem;
+    text-decoration: none;
+    color: #555;
 }
 
 #container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap:20px;
+    gap: 56px;
+    padding: 60px 40px;
+    max-width: 1000px;
+    align-items: flex-start;
 }
 
 #bookImg-container img {
-    height: 400px;
+    height: 420px;
+    border-radius: 8px;
+    box-shadow: 6px 10px 28px rgba(0,0,0,0.25);
 }
 
+#bookInfo-container {
+    border-left: 3px solid #eee;
+    padding-left: 24px;
+}
+
+#bookInfo-container h2 {
+    font-weight: normal;
+    color: #777;
+}
+
+#addToReadBtn {
+    padding: 9px 18px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: none;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+#addToReadBtn:hover {
+    background-color: #f5f5f5;
+}
+
+#stars {
+    display: flex;
+    gap: 4px;
+}
+
+.star-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.star-item span {
+    font-size: 1.6rem;
+    color: #ccc;
+}
+
+.star-item small {
+    font-size: 0.7rem;
+    color: #aaa;
+}
+
+.star-item:hover span {
+    color: gold;
+}
+
+#aside {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 160px;
+    background-color: #fff;
+    border-left: 1px solid #dde8dd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    gap: 12px;
+}
+
+#profile-img {
+    display: block;
+}
+
+#aside #profile-username {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+}
+
+#aside #logout-btn {
+    margin-top: auto;
+    margin-bottom: 60px;
+    cursor: pointer;
+    color: #e74c3c;
+    font-size: 0.9rem;
+    background: none;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    padding: 6px 16px;
+}
+
+main {
+    margin-right: 180px;
+    padding: 20px;
+}
+
+#profile-main {
+    padding: 40px;
+    width: calc(100vw - 260px);
+    box-sizing: border-box;
+    margin-right: 0;
+}
+
+#profile-main h1 {
+    margin-bottom: 24px;
+}
+
+#profile-columns {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.profile-section {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #dde8dd;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.profile-section h2 {
+    font-size: 1rem;
+    margin: 0 0 12px 0;
+    color: #333;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.filter span {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.filter button {
+    padding: 3px 10px;
+    border: 1px solid #c5d9c5;
+    border-radius: 20px;
+    background: none;
+    color: #3a5a3a;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.filter button:hover {
+    background-color: #eaf3ea;
+}
+
+.profile-book {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+}
+
+.profile-book:last-child {
+    border-bottom: none;
+}
+
+.profile-book:hover {
+    background-color: #fafafa;
+}
+
+.profile-book-img {
+    width: 48px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-left:5px;
+}
+
+.profile-book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.profile-book-info strong {
+    font-size: 0.95rem;
+}
+
+.profile-book-info span {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.profile-book-rating {
+    font-size: 1rem;
+    color: #f59e0b;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right:5px;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #aaa;
+    padding: 4px;
+}
+
+.delete-btn:hover {
+    color: #e74c3c;
+}
+
+
+#admin-addBook {
+    display:none;
+}

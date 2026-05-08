@@ -1,4 +1,3 @@
-// Register a new user when the Register button is clicked
 document.querySelector("#register").addEventListener("click", async () => {
 
     const username = document.querySelector("#reg-username").value;
@@ -20,7 +19,6 @@ document.querySelector("#register").addEventListener("click", async () => {
     }
 });
 
-// Log in an existing user when the Login button is clicked
 document.querySelector("#login").addEventListener("click", async () => {
 
     const identifier = document.querySelector("#login-username").value;
@@ -40,7 +38,8 @@ document.querySelector("#login").addEventListener("click", async () => {
     }
 });
 
-const whileLoggedIn = () => {
+
+function whileLoggedIn () {
     const registerBtn = document.querySelector("#registerBtn");
     const loginBtn = document.querySelector("#loginBtn");
     const registerFrame = document.querySelector("#registerFrame");

@@ -7,18 +7,20 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="index.js" defer></script>
     <script src="registration.js" defer></script>
+    <script src="profile.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <img src="images/duck.png" height="60"/>
-        <h1>Book Ducks</h1>
-        <div id="btn-group">
-            <button id="registerBtn">Register</button>
-            <button id="loginBtn">Login</button>
+        <img src="images/pond.png" id="header-logo"/>
+        <div id="header-right">
+            <div id="btn-group">
+                <button id="registerBtn">Register</button>
+                <button id="loginBtn">Login</button>
+            </div>
+            <a href="profile.html"><img id="profileDuck" src="images/profile.png" alt="Profile" height="100"/></a>
         </div>
-        <a href="profile.html"><img id="profileDuck" src="images/profile.png" alt="Profile" height="60"/></a>
     </header>
 
     <div id="registerFrame">
@@ -38,6 +40,8 @@
 
     <h2>All Books</h2>
 
-    <ul id="book-list"></ul>
+    <ul id="book-list">
+        <a href="admin.html"><button id="admin-addBook"></button></a>
+    </ul>
 </body>
 </html>
