@@ -7,7 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="index.js" defer></script>
     <script src="registration.js" defer></script>
-    <script src="profile.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -15,6 +14,7 @@
     <header>
         <img src="images/pond.png" id="header-logo"/>
         <div id="header-right">
+            <a href="admin.html"><p id="admin-addBook">+</p></a>
             <div id="btn-group">
                 <button id="registerBtn">Register</button>
                 <button id="loginBtn">Login</button>
@@ -38,9 +38,7 @@
         <button id="login">Login</button>
     </div>
 
-    <a href="admin.html"><p id="admin-addBook">🞡</p></a>
-
-    <h2>All Books</h2>
+    <h2 id="all-books-title">All Books</h2>
 
     <ul id="book-list"></ul>
 </body>

@@ -25,6 +25,7 @@ const renderPage = async () => {
     let books = response.data.data;
 
     books.forEach(book => {
+        console.log(book.Cover);
         const rating = avg[book.documentId] ?? book.Rating;
         const card = document.createElement("div");
         card.className = "book-container";
