@@ -3,9 +3,29 @@ const id = new URLSearchParams(location.search).get("id");
 const token = localStorage.getItem("token");
 const authHeader = { headers: { Authorization: `Bearer ${token}` } };
 
+
+async function averageRating() {
+    const res = await axios.get(`${BASE_URL}/api/user-ratings?populate=book`);
+    const ratings = res.data.data;
+    const map = {};
+    ratings.forEach(r => {
+        const id = r.book?.documentId;
+        if (!id) return;
+        if (!map[id]) map[id] = [];
+        map[id].push(r.Rating);
+    });
+    const avg = {};
+    for (const id in map) {
+        avg[id] = (map[id].reduce((a, b) => a + b, 0) / map[id].length).toFixed(1);
+    }
+    return avg;
+}
+
 const renderBook = async () => {
+    const avg = await averageRating();
     const response = await axios.get(`${BASE_URL}/api/books/${id}?populate=*`);
     const book = response.data.data;
+    const rating = avg[id] ?? "No ratings yet";
     const bookImgContainer = document.querySelector("#bookImg-container");
     const bookInfoContainer = document.querySelector("#bookInfo-container");
 
@@ -20,7 +40,7 @@ const renderBook = async () => {
         <p>${book.Pages} pages</p>
         <p>Released ${book.Release}</p>
         <br>
-        <p>Rating:<br><span style="color: #F59E0B;">★</span> ${book.Rating}</p>`;
+        <p>Rating:<br><span style="color: #F59E0B;">★</span> ${rating}</p>`;
 }
 
 async function addToReadList() {
@@ -48,6 +68,7 @@ async function addToReadList() {
                 data: { books: [id], users_permissions_user: user.data.id }
             }, authHeader);
         }
+        location.reload()
     });
 }
 
@@ -113,7 +134,19 @@ async function checkReadlistStatus() {
     }
 }
 
+async function Theme() {
+    const theme = await axios.get(`${BASE_URL}/api/theme`);
+    const res = theme.data.data?.Color;
+    if (res === null) {
+        document.body.classList.add("red-theme");
+    } else if (res === false) {
+        document.body.classList.add("dark-theme");
+    }
+}
+
 renderBook();
 addToReadList();
 rateBook();
 checkReadlistStatus();
+Theme();
+

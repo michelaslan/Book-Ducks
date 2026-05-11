@@ -85,6 +85,17 @@ async function adminPanel(){
     }
 }
 
+async function Theme(){
+    const theme = await axios.get(`${BASE_URL}/api/theme`);
+    const res = theme.data.data?.Color;
+    if (res === null){
+        document.body.classList.add("red-theme");
+    } else if (res === false){
+        document.body.classList.add("dark-theme");
+    }
+}
+
 buttonRendering();
 renderPage();
 adminPanel()
+Theme();
