@@ -6,6 +6,7 @@ async function createBook() {
     const pages = document.querySelector("#addBook-pages").value;
     const release = document.querySelector("#addBook-release").value;
     const image = document.querySelector("#addBook-image").files;
+    const text = document.querySelector("#addBook-text").value;
 
     let imgData = new FormData();
     imgData.append("files", image[0]);
@@ -25,7 +26,8 @@ async function createBook() {
                 Author: author,
                 Pages: pages,
                 Release: release,
-                Cover: imageId
+                Cover: imageId,
+                Text: text
             }
         }, {
             headers: {

@@ -28,6 +28,7 @@ const renderBook = async () => {
     const rating = avg[id] ?? "No ratings yet";
     const bookImgContainer = document.querySelector("#bookImg-container");
     const bookInfoContainer = document.querySelector("#bookInfo-container");
+    const bookTextContainer = document.querySelector("#text-container");
 
     bookImgContainer.innerHTML = `
         <img src="${BASE_URL}${book.Cover?.url}"/>
@@ -41,6 +42,17 @@ const renderBook = async () => {
         <p>Released ${book.Release}</p>
         <br>
         <p>Rating:<br><span style="color: #F59E0B;">★</span> ${rating}</p>`;
+    
+    if (book.Text === null){
+        bookTextContainer.innerHTML = `
+    <p>No text available yet</p>
+    `;
+    }
+    else {
+    bookTextContainer.innerHTML = `
+    <p style="white-space: pre-wrap">${book.Text}</p>
+    `;
+    }
 }
 
 async function addToReadList() {

@@ -95,6 +95,7 @@ header {
 
 .book-container {
     height: 500px;
+    max-width: 150px;
     display: flex;
     flex-direction: column;
     border: 1px solid #dde8dd;
@@ -556,4 +557,8 @@ a:has(#admin-addBook) {
 }
 .red-theme #bookInfo-container {
     border-left-color: #5a1010;
+}
+
+#text-container p{
+    margin: 0 100px;
 }

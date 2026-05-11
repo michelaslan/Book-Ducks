@@ -26,7 +26,7 @@ const renderPage = async () => {
 
     books.forEach(book => {
         console.log(book.Cover);
-        const rating = avg[book.documentId] ?? book.Rating;
+        const rating = avg[book.documentId] ?? "No rating yet";
         const card = document.createElement("div");
         card.className = "book-container";
         card.innerHTML = `

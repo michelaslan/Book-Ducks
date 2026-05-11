@@ -466,6 +466,7 @@ export interface ApiBookBook extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     readlists: Schema.Attribute.Relation<'oneToMany', 'api::readlist.readlist'>;
     Release: Schema.Attribute.Date & Schema.Attribute.Required;
+    Text: Schema.Attribute.Text;
     Title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

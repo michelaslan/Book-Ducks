@@ -47,6 +47,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::readlist.readlist"
+    },
+    "Text": {
+      "type": "text"
     }
   }
 }
