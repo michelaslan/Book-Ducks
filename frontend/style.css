@@ -558,6 +558,10 @@ a:has(#admin-addBook) {
 .red-theme #bookInfo-container {
     border-left-color: #5a1010;
 }
+.red-theme #addToReadBtn {
+    color: #fff;
+    border-color: #f5d5d5;
+}
 
 #text-container p{
     margin: 0 100px;
