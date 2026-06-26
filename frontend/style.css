@@ -17,8 +17,13 @@ header {
     box-sizing: border-box;
 }
 
-#header-logo {
-    height: 80px;
+#site-title {
+    font-family: 'Bangers', cursive;
+    font-size: 2.4rem;
+    letter-spacing: 0.08em;
+    color: #2a4a2a;
+    margin: 0;
+    text-shadow: 2px 2px 0 #c5d9c5;
 }
 
 #header-right {
@@ -28,8 +33,16 @@ header {
 }
 
 #profileDuck {
-    color: rgb(23, 67, 23);
+    width: 65px;
+    height: 65px;
     display: none;
+    cursor: pointer;
+}
+
+#profile-img {
+    width: 70px;
+    height: 70px;
+    display: block;
 }
 
 #btn-group {
@@ -94,42 +107,85 @@ header {
 }
 
 .book-container {
-    height: 500px;
-    max-width: 150px;
+    width: 175px;
     display: flex;
     flex-direction: column;
     border: 1px solid #dde8dd;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
     cursor: pointer;
     background: #fff;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .book-container:hover {
-    box-shadow: 0 6px 18px rgba(0,0,0,0.13);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    transform: translateY(-3px);
 }
 
-.book-container img {
+.book-cover {
     width: 100%;
-    height: 50%;
-    object-fit: cover;
+    height: 240px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #e8ede8;
 }
 
-.book-container h2,
-.book-container p {
-    margin: 4px 12px;
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
-.book-container h2 {
-    margin-top: 12px;
-    font-size: 1.1rem;
+.book-info {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
 }
 
-.book-container p:last-child {
-    margin-bottom: 12px;
+.book-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #0f0f0f;
+    margin: 0 0 2px;
+    line-height: 1.35;
+    min-height: calc(2 * 0.92rem * 1.35);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.book-author {
+    font-size: 0.8rem;
+    color: #333;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-meta {
+    font-size: 0.72rem;
+    color: #666;
+    margin: 4px 0 0;
+    letter-spacing: 0.01em;
+}
+
+.book-rating {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #222;
+    margin: 6px 0 0;
+}
+
+.book-star {
+    color: #f59e0b;
 }
 
 #bookmark {
@@ -223,10 +279,6 @@ header {
     gap: 12px;
 }
 
-#profile-img {
-    display: block;
-}
-
 #aside #profile-username {
     font-weight: 600;
     font-size: 1rem;
@@ -243,6 +295,11 @@ header {
     border: 1px solid #e74c3c;
     border-radius: 6px;
     padding: 6px 16px;
+}
+
+#aside #logout-btn:hover {
+    background-color: #e74c3c;
+    color: black;
 }
 
 main {
@@ -370,7 +427,6 @@ main {
 .delete-btn:hover {
     color: #e74c3c;
 }
-
 
 a:has(#admin-addBook) {
     text-decoration: none;
@@ -502,6 +558,26 @@ a:has(#admin-addBook) {
 .dark-theme #bookInfo-container {
     border-left-color: #333;
 }
+.dark-theme #site-title           { color: #88cc88; text-shadow: 2px 2px 0 #1a3a1a; }
+.dark-theme #all-books-title      { color: #cccccc; }
+.dark-theme #backArrow            { color: #bbbbbb; }
+.dark-theme .filter span          { color: #bbbbbb; }
+.dark-theme .filter button        { color: #cccccc; border-color: #555; }
+.dark-theme .filter button:hover  { background-color: #2a2a2a; }
+.dark-theme .profile-section h2   { color: #dddddd; }
+.dark-theme .profile-book-info span { color: #aaaaaa; }
+.dark-theme #bookInfo-container h2  { color: #aaaaaa; }
+.dark-theme #admin-addBook        { color: #cccccc; border-color: #555; }
+.dark-theme #addToReadBtn         { color: #dddddd; border-color: #777; }
+.dark-theme #createBookBtn        { color: #dddddd; border-color: #777; }
+.dark-theme #admin-form-container h1 { color: #dddddd; }
+.dark-theme #admin-form input     { background-color: #2a2a2a; border-color: #444; color: #e0e0e0; }
+.dark-theme #admin-form input:focus  { border-color: #88cc88; }
+.dark-theme .book-title           { color: #f0f0f0; }
+.dark-theme .book-author          { color: #c0c0c0; }
+.dark-theme .book-meta            { color: #909090; }
+.dark-theme .book-rating          { color: #e0e0e0; }
+.dark-theme .book-cover           { background-color: #2a2a2a; }
 
 /* Red theme */
 .red-theme {
@@ -562,6 +638,25 @@ a:has(#admin-addBook) {
     color: #fff;
     border-color: #f5d5d5;
 }
+.red-theme #site-title            { color: #f5c09a; text-shadow: 2px 2px 0 #5a1010; }
+.red-theme #all-books-title       { color: #f5c5c5; }
+.red-theme #backArrow             { color: #f5c5c5; }
+.red-theme .filter span           { color: #ddb0b0; }
+.red-theme .filter button         { color: #f5c5c5; border-color: #7a3030; }
+.red-theme .filter button:hover   { background-color: #381010; }
+.red-theme .profile-section h2    { color: #f5d5d5; }
+.red-theme .profile-book-info span  { color: #cc9999; }
+.red-theme #bookInfo-container h2   { color: #cc9999; }
+.red-theme #admin-addBook         { color: #f5c5c5; border-color: #7a3030; }
+.red-theme #createBookBtn         { color: #f5d5d5; border-color: #a05050; }
+.red-theme #admin-form-container h1 { color: #f5d5d5; }
+.red-theme #admin-form input      { background-color: #3d1010; border-color: #6b1a1a; color: #f5d5d5; }
+.red-theme #admin-form input:focus   { border-color: #f5c5c5; }
+.red-theme .book-title            { color: #f5e0e0; }
+.red-theme .book-author           { color: #d5b0b0; }
+.red-theme .book-meta             { color: #b08080; }
+.red-theme .book-rating           { color: #f0d0d0; }
+.red-theme .book-cover            { background-color: #3d1010; }
 
 #text-container p{
     margin: 0 100px;

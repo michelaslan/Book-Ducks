@@ -30,13 +30,15 @@ const renderPage = async () => {
         const card = document.createElement("div");
         card.className = "book-container";
         card.innerHTML = `
-            <img src="${BASE_URL}${book.Cover?.url}"/>
-            <h2>${book.Title}</h2>
-            <p>${book.Author}</p>
-            <p>${book.Pages} pages</p>
-            <p>Released ${book.Release}</p>
-            <p><span style="color: #F59E0B;">★</span> ${rating}</p>`
-            ;
+            <div class="book-cover">
+                <img src="${BASE_URL}${book.Cover?.url}" alt="${book.Title}"/>
+            </div>
+            <div class="book-info">
+                <h2 class="book-title">${book.Title}</h2>
+                <p class="book-author">${book.Author}</p>
+                <p class="book-meta">${book.Pages} pages &middot; ${book.Release}</p>
+                <p class="book-rating"><span class="book-star">★</span> ${rating}</p>
+            </div>`;
             
         card.addEventListener("click", () => {
             window.location.href = `book.html?id=${book.documentId}`;
@@ -80,10 +82,13 @@ function buttonRendering (){
 async function Theme(){
     const theme = await axios.get(`${BASE_URL}/api/theme`);
     const res = theme.data.data?.Color;
+    const duck = document.querySelector("#profileDuck");
     if (res === null){
         document.body.classList.add("red-theme");
+        duck.src = "images/duckPink.png";
     } else if (res === false){
         document.body.classList.add("dark-theme");
+        duck.src = "images/duckGreen.png";
     }
 }
 

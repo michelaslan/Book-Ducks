@@ -98,10 +98,13 @@ document.querySelector("#logout-btn").addEventListener("click", () => {
 async function Theme() {
     const theme = await axios.get(`${BASE_URL}/api/theme`);
     const res = theme.data.data?.Color;
+    const duck = document.querySelector("#profile-img");
     if (res === null) {
         document.body.classList.add("red-theme");
+        duck.src = "images/duckPink.png";
     } else if (res === false) {
         document.body.classList.add("dark-theme");
+        duck.src = "images/duckGreen.png";
     }
 }
 
